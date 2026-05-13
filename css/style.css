@@ -8,18 +8,18 @@
 /* === CSS CUSTOM PROPERTIES === */
 :root {
   /* Brand colours */
-  --teal:          #1A6B7E;
-  --teal-light:    #E8F4F7;
-  --teal-mid:      #2A8EA5;
-  --teal-dark:     #125060;
+  --teal:          #66AF76;
+  --teal-light:    #E8F5EC;
+  --teal-mid:      #80BF88;
+  --teal-dark:     #4D9160;
 
   /* Neutral palette (matching existing site) */
   --cream-50:      #FAF8F5;
   --cream-100:     #F5F1EB;
   --cream-200:     #EDE6DC;
   --cream-300:     #E0D6C8;
-  --sage:          #6A9164;
-  --sage-light:    #EAF0E8;
+  --sage:          #402779;
+  --sage-light:    #EDE8F5;
   --warmgray-400:  #ADA99F;
   --warmgray-600:  #7A766D;
   --warmgray-800:  #4A4742;
