@@ -172,16 +172,9 @@ ul {
 .navbar__logo-icon {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-md);
-  background: var(--teal);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-family: var(--font-display);
-  letter-spacing: -0.5px;
   flex-shrink: 0;
 }
 
@@ -192,9 +185,16 @@ ul {
 }
 
 .navbar__logo-name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--warmgray-900);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--sage);
+  letter-spacing: -0.02em;
+}
+
+.navbar__logo-name--light {
+  font-weight: 400;
+  color: var(--sage);
 }
 
 .navbar__logo-sub {
@@ -1451,15 +1451,9 @@ footer {
 .footer__logo-icon {
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-sm);
-  background: var(--teal);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1rem;
 }
 
 .footer__brand-name {
