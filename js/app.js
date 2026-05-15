@@ -80,8 +80,10 @@
         <p>No tests match your search. Try a different term or category.</p>
       </div>`;
     }
-    return tests.map(t => `
-      <article class="test-card" itemscope itemtype="https://schema.org/MedicalTest">
+    return tests.map(t => {
+      const catClass = 'test-card--' + t.category.toLowerCase().replace(/[\s/]+/g, '-').replace(/[^a-z0-9-]/g, '');
+      return `
+      <article class="test-card ${catClass}" itemscope itemtype="https://schema.org/MedicalTest">
         <div class="test-card__header">
           <h3 class="test-card__name" itemprop="name">${t.name}</h3>
           <span class="test-card__code" title="Test code">${t.code}</span>
@@ -93,7 +95,7 @@
         <span class="badge badge--teal" style="font-size:0.7rem;margin-bottom:${t.notes ? '0.5rem' : '0'}">${t.category}</span>
         ${t.notes ? `<p class="test-card__notes">${t.notes}</p>` : ''}
       </article>
-    `).join('');
+    `}).join('');
   }
 
   function renderScreenCards(screens) {
@@ -223,8 +225,20 @@
   }
 
   function getFilteredScreens() {
-    if (activeScreenCategory === 'All') return VHL_SCREENS;
-    return VHL_SCREENS.filter(s => s.category === activeScreenCategory);
+    let screens = VHL_SCREENS;
+    if (activeScreenCategory !== 'All') {
+      screens = screens.filter(s => s.category === activeScreenCategory);
+    }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      screens = screens.filter(s =>
+        s.name.toLowerCase().includes(q) ||
+        s.description.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q) ||
+        s.includes.some(item => item.toLowerCase().includes(q))
+      );
+    }
+    return screens;
   }
 
   function renderTestsContent() {
@@ -256,24 +270,24 @@
         // Switch filter row visibility
         const testFilters = document.getElementById('test-filters');
         const screenFilters = document.getElementById('screen-filters');
-        const searchRow = document.getElementById('search-row');
 
         if (currentTab === 'tests') {
           grid.className = 'test-grid';
           if (testFilters) testFilters.classList.remove('hidden');
           if (screenFilters) screenFilters.classList.add('hidden');
-          if (searchRow) searchRow.classList.remove('hidden');
         } else {
           grid.className = 'screens-grid';
           if (testFilters) testFilters.classList.add('hidden');
           if (screenFilters) screenFilters.classList.remove('hidden');
-          if (searchRow) searchRow.classList.add('hidden');
         }
 
         searchQuery = '';
         activeCategory = 'All';
+        activeScreenCategory = 'All';
         const searchEl = document.getElementById('test-search');
         if (searchEl) searchEl.value = '';
+        const clearBtn = document.getElementById('search-clear');
+        if (clearBtn) clearBtn.style.display = 'none';
         document.querySelectorAll('#test-filters .pill').forEach(p => p.classList.remove('active'));
         const allPill = document.querySelector('#test-filters .pill[data-cat="All"]');
         if (allPill) allPill.classList.add('active');
@@ -284,9 +298,21 @@
 
     // Search
     const searchEl = document.getElementById('test-search');
+    const clearBtn = document.getElementById('search-clear');
+
     if (searchEl) {
       searchEl.addEventListener('input', (e) => {
         searchQuery = e.target.value.trim();
+        if (clearBtn) clearBtn.style.display = searchQuery ? 'flex' : 'none';
+        renderTestsContent();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        searchQuery = '';
+        if (searchEl) { searchEl.value = ''; searchEl.focus(); }
+        clearBtn.style.display = 'none';
         renderTestsContent();
       });
     }
