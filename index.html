@@ -282,36 +282,45 @@
         <!-- Controls -->
         <div class="tests-controls">
 
-          <!-- Tab toggle -->
-          <div class="tab-row" role="tablist" aria-label="Test catalogue view">
-            <button class="tab-btn active" data-tab="screens" role="tab" aria-selected="true"  aria-controls="test-grid" id="tab-screens">
-              🧬 VHL Screens &amp; Panels
-            </button>
-            <button class="tab-btn"        data-tab="tests"   role="tab" aria-selected="false" aria-controls="test-grid" id="tab-tests">
-              📋 Individual Tests (A–Z)
-            </button>
+          <!-- Dark header: segmented tab toggle -->
+          <div class="tests-controls__header">
+            <div class="tab-row" role="tablist" aria-label="Test catalogue view">
+              <button class="tab-btn active" data-tab="screens" role="tab" aria-selected="true" aria-controls="test-grid" id="tab-screens">
+                🧬 VHL Screens &amp; Panels
+              </button>
+              <button class="tab-btn" data-tab="tests" role="tab" aria-selected="false" aria-controls="test-grid" id="tab-tests">
+                📋 Individual Tests A–Z
+              </button>
+            </div>
           </div>
 
-          <!-- Search (individual tests only) -->
-          <div class="search-row" id="search-row" style="display:none">
-            <label for="test-search" class="sr-only">Search tests by name or code</label>
-            <input
-              type="search"
-              id="test-search"
-              class="search-input"
-              placeholder="Search by test name or code (e.g. ALT, Ferritin, TSH…)"
-              aria-label="Search tests"
-              autocomplete="off"
-            />
-            <span id="results-count" class="results-count" aria-live="polite" aria-atomic="true"></span>
+          <!-- Controls body: search + filters -->
+          <div class="tests-controls__body">
+
+            <div class="search-row" id="search-row">
+              <div class="search-wrapper">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <label for="test-search" class="sr-only">Search tests and panels</label>
+                <input
+                  type="search"
+                  id="test-search"
+                  class="search-input"
+                  placeholder="Search tests and panels by name, code or marker…"
+                  aria-label="Search tests and panels"
+                  autocomplete="off"
+                />
+                <button class="search-clear" id="search-clear" aria-label="Clear search" style="display:none">✕</button>
+              </div>
+              <span id="results-count" class="results-count" aria-live="polite" aria-atomic="true"></span>
+            </div>
+
+            <!-- Category filter pills — individual tests -->
+            <div id="test-filters" class="filter-pills hidden" role="group" aria-label="Filter by category"></div>
+
+            <!-- Category filter pills — VHL Screens -->
+            <div id="screen-filters" class="screen-filter-row filter-pills" role="group" aria-label="Filter panels by category"></div>
+
           </div>
-
-          <!-- Category filter pills — individual tests -->
-          <div id="test-filters" class="filter-pills hidden" role="group" aria-label="Filter by category"></div>
-
-          <!-- Category filter pills — VHL Screens -->
-          <div id="screen-filters" class="screen-filter-row filter-pills" role="group" aria-label="Filter panels by category"></div>
-
         </div>
 
         <!-- Results -->
